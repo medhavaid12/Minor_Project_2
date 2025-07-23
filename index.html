@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Emotion Classifier</title>
+</head>
+<body>
+  <h2>Emotion Classifier</h2>
+  <textarea id="textInput" rows="5" cols="60" placeholder="Enter your text here..."></textarea><br><br>
+  <button onclick="predictEmotion()">Predict Emotion</button>
+  <h3>Results:</h3>
+  <pre id="result"></pre>
+
+  <script>
+    async function predictEmotion() {
+      const text = document.getElementById('textInput').value;
+      const response = await fetch('http://localhost:5000/predict', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text })
+      });
+      const data = await response.json();
+      document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+    }
+  </script>
+</body>
+</html>
